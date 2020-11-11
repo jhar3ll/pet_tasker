@@ -3,14 +3,14 @@ class PetsController < ApplicationController
 
   # GET /pets
   def index
-    @pets = Pet.all
+    pets = Pet.all
   
-    render json: @pets
+    render json: pets, except: [:created_at, :updated_at]
   end
 
   # GET /pets/1
   def show
-    render json: @pet
+    render json: pet, except: [:created_at, :updated_at]
   end
 
   # POST /pets
