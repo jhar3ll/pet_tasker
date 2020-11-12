@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_11_10_214743) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "description"
-    t.date "task_date"
+    t.string "task_date"
     t.integer "user_id"
     t.integer "pet_id"
     t.datetime "created_at", precision: 6, null: false
