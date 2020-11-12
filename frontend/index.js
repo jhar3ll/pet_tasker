@@ -25,8 +25,15 @@ function createUserForm() {
     Username: <input type="text" id="username">
               <input type="submit" value="create">
     </form>
-    `
-    usersForm.addEventListener("submit", userFormSubmit)
+    ` 
+    usersForm.addEventListener("submit", () => {
+        userFormSubmit()
+        clearForm()
+    })
+}
+
+function clearForm(){
+    document.getElementById("username").value = ' '
 }
 
 function userFormSubmit(){
@@ -50,4 +57,14 @@ function userFormSubmit(){
         let u = new User(user.id, user.username)
         u.renderUser()
     })
+}
+
+function deleteUser(){
+    let userId = parseInt(event.target.dataset.id)
+
+    fetch(`${BASE_URL}/users/${userId}`, {
+        method: 'DELETE'
+    })
+
+    this.location.reload()
 }
