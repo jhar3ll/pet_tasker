@@ -5,11 +5,8 @@ class User{
      }
 
      renderUser() {
-         let usersDiv = document.getElementById("users-container")
-             usersDiv.innerHTML +=
-         `<h2> User(${this.id}): ${this.username} <button class="delete-bttn" data-id=${this.id} 
-                onclick="deleteUser()">Delete User</button></h2>
-         `
+         let usersDiv = document.getElementById("welcome")
+             usersDiv.innerHTML = `<h2>Welcome ${this.username}!</h2>`
      }
 }
         

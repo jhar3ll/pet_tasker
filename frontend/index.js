@@ -1,21 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
     createUserForm()
-    fetchUsers()
 })
 
 const BASE_URL = "http://localhost:3000/"
 
-function fetchUsers(){
-    fetch(`${BASE_URL}/users`)
-    .then(resp => resp.json())
-    .then(users => {
-        for (const user of users){
-            let u = new User(user.id, user.username)
-            u.renderUser();
-        }
-        
-    })
-}
+// function fetchUsers(){
+//     fetch(`${BASE_URL}/users`)
+//     .then(resp => resp.json())
+//     .then(users => {
+//         for (const user of users){
+//             let u = new User(user.id, user.username)
+//             u.renderUser();
+//         }
+//     })
+// }
 
 function createUserForm() {
     let usersForm = document.getElementById("users-form")
@@ -29,11 +27,8 @@ function createUserForm() {
     usersForm.addEventListener("submit", () => {
         userFormSubmit()
         clearForm()
+        postSubmit()
     })
-}
-
-function clearForm(){
-    document.getElementById("username").value = ' '
 }
 
 function userFormSubmit(){
@@ -59,12 +54,28 @@ function userFormSubmit(){
     })
 }
 
-function deleteUser(){
-    let userId = parseInt(event.target.dataset.id)
-
-    fetch(`${BASE_URL}/users/${userId}`, {
-        method: 'DELETE'
-    })
-
-    this.location.reload()
+function clearForm(){
+    document.getElementById("users-form").innerHTML = ' '
 }
+
+function postSubmit(){
+    
+}
+
+
+
+// function deleteUser(){
+//     let userId = parseInt(event.target.dataset.id)
+
+//     fetch(`${BASE_URL}/users/${userId}`, {
+//         method: 'DELETE'
+//     })
+
+//     this.location.reload()
+// }
+
+// function logUsers(){
+//     fetch(`${BASE_URL}/users`)
+//     .then(resp => resp.json())
+//     .then(users => console.log(users))
+// }
