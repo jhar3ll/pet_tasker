@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     createUserForm()
+    createTaskForm()
+    fetchTasks()
 })
 
 const BASE_URL = "http://localhost:3000/"
@@ -45,14 +47,14 @@ function userFormSubmit(){
 
 function clearForm(){
     document.getElementById("users-form").innerHTML = ' '
-    document.getElementById("tasks-form").innerHTML = ' '
+  //  document.getElementById("tasks-form").innerHTML = ' '
 
 }
 
 function postSubmit(){
     //functions for after new username
     fetchTasks()
-    createTaskForm()
+    //createTaskForm()
 }
 
 function createTaskForm() {
@@ -67,7 +69,7 @@ function createTaskForm() {
     ` 
     tasksForm.addEventListener("submit", () => {
         taskFormSubmit()
-        clearForm()
+        //clearForm()
     })
 }
 
@@ -76,8 +78,10 @@ function fetchTasks(){
     .then(resp => resp.json())
     .then(tasks => {
         for (const task of tasks){
-            let t = new Task(task.id, task.description, task.task_date)
-            t.renderTask();
+            let t = new Task(task.id, task.description, task.task_date, task.pet_id)
+            t.renderTask()
+            let petName = t.find_by(params[I])
+            console.log(petName)
         }
     })
 }
