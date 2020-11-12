@@ -5,5 +5,9 @@ class Task{
         this.task_date = task_date
     }
 
-
+    renderTask() {
+        let taskDiv = document.getElementById("task-list")
+            taskDiv.innerHTML += `<h3>${this.description}!</h3>`
+    }
 }
+       
