@@ -4,7 +4,6 @@ class CreateTasks < ActiveRecord::Migration[6.0]
       t.string :description
       t.string :task_date
     
-      #t.belongs_to :pet
       t.timestamps
     end
   end
