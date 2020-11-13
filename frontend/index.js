@@ -100,8 +100,8 @@ function taskFormSubmit(){
     })
     .then(resp => resp.json())
     .then(task => {
-        let u = new Task(task.id, task.description, task.task_date)
-        u.renderTask()
+        let t = new Task(task.id, task.description, task.task_date)
+        t.renderTask()
     })
 }
 

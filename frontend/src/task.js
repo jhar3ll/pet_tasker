@@ -12,4 +12,3 @@ class Task{
             document.getElementById("tasks").appendChild(newTask)
     }
 }
-       
