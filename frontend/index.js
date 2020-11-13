@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     createUserForm()
-    createTaskForm()
     fetchTasks()
+    createTaskForm()
 })
 
 const BASE_URL = "http://localhost:3000/"
@@ -16,8 +16,8 @@ function createUserForm() {
     </form>
     ` 
     usersForm.addEventListener("submit", () => {
+        event.target.reset()
         userFormSubmit()
-        clearForm()
         postSubmit()
     })
 }
@@ -45,32 +45,10 @@ function userFormSubmit(){
     })
 }
 
-function clearForm(){
-    document.getElementById("users-form").innerHTML = ' '
-  //  document.getElementById("tasks-form").innerHTML = ' '
-
-}
-
 function postSubmit(){
     //functions for after new username
     fetchTasks()
-    //createTaskForm()
-}
-
-function createTaskForm() {
-    let tasksForm = document.getElementById("tasks-form")
-
-    tasksForm.innerHTML +=
-    `<form> 
-    Task: <input type="text" id="task_description" placeholder="task description">
-              <input type="date" id="task_date">
-              <input type="submit" value="create">
-    </form>
-    ` 
-    tasksForm.addEventListener("submit", () => {
-        taskFormSubmit()
-        //clearForm()
-    })
+    createTaskForm()
 }
 
 function fetchTasks(){
@@ -78,21 +56,37 @@ function fetchTasks(){
     .then(resp => resp.json())
     .then(tasks => {
         for (const task of tasks){
-            let t = new Task(task.id, task.description, task.task_date, task.pet_id)
+            let t = new Task(task.id, task.description, task.task_date)
             t.renderTask()
-            let petName = t.find_by(params[I])
-            console.log(petName)
         }
+    })
+}
+
+function createTaskForm() {
+    let tasksForm = document.getElementById("tasks-form")
+
+    tasksForm.innerHTML +=
+    `<form> 
+    Task: <input type="text" id="description" placeholder="task description">
+          <input type="text" id="task_date" >
+          <input type="submit" value="create">
+          
+    </form>
+    ` 
+    tasksForm.addEventListener("submit", () => {
+        taskFormSubmit()
+        event.target.reset()
+        //clearForm()
     })
 }
 
 function taskFormSubmit(){
     event.preventDefault()
-    let task_description = document.getElementById("task_description").value
+    let description = document.getElementById("description").value
     let task_date = document.getElementById("task_date").value
     
     let task = {
-        task_description: task_description,
+        description: description,
         task_date: task_date
     }
 
@@ -106,8 +100,8 @@ function taskFormSubmit(){
     })
     .then(resp => resp.json())
     .then(task => {
-        let t = new Task(task.id, task.description, task.task_date)
-            t.renderTask();
+        let u = new Task(task.id, task.description, task.task_date)
+        u.renderTask()
     })
 }
 
@@ -126,3 +120,10 @@ function taskFormSubmit(){
 //     .then(resp => resp.json())
 //     .then(users => console.log(users))
 // }
+
+{/* <select name="pet" id="pet_id" placeholder="select your pet">
+            <option value="1">Charlie</option>
+            <option value="2">Luna</option>
+            <option value="3">Lila</option>
+            <option value="4">Simon</option>
+        </select> */}
