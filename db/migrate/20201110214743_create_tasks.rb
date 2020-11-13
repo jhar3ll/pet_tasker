@@ -3,8 +3,8 @@ class CreateTasks < ActiveRecord::Migration[6.0]
     create_table :tasks do |t|
       t.string :description
       t.string :task_date
-      t.belongs_to :user
-      t.belongs_to :pet
+    
+      #t.belongs_to :pet
       t.timestamps
     end
   end
