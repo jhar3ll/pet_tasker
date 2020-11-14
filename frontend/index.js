@@ -15,7 +15,7 @@ function createUserForm() {
     ` 
     usersForm.addEventListener("submit", () => {
         userFormSubmit()
-        event.target.reset()
+        usersForm.innerHTML = ''
         postSubmit()
     })
 }
@@ -45,7 +45,6 @@ function userFormSubmit(){
 
 function postSubmit(){
     //functions for after new username
-    taskList()
     createTaskForm()
 }
 
@@ -55,7 +54,7 @@ function fetchTasks(){
     .then(resp => resp.json())
     .then(tasks => {
         for (const task of tasks){
-            let t = new Task(task.id, task.description, task.task_date)
+            let t = new Task(task.id, task.description, task.task_date, task.task_time)
             t.renderTask()
         }
     })
@@ -71,8 +70,9 @@ function createTaskForm() {
 
     tasksForm.innerHTML +=
     `<form> 
-    Task: <input type="text" id="description" placeholder="task description">
+    Task: <input type="text" id="description" placeholder="Task Description">
           <input type="date" id="task_date">
+          <input type="time" id="task_time">
           
           <select name="pet" id="pet_id" >
             <option value="Charlie">Charlie</option>
@@ -87,6 +87,7 @@ function createTaskForm() {
     ` 
     tasksForm.addEventListener("submit", () => {
         taskFormSubmit()
+        taskList()
         event.target.reset()
     })
 }
@@ -94,12 +95,22 @@ function createTaskForm() {
 function taskFormSubmit(){
     event.preventDefault()
     let description = document.getElementById("description").value
-    let task_date = document.getElementById("task_date").value  
+    let raw_date = document.getElementById("task_date").value
+    let task_date = new Date(raw_date).toDateString()
+
+    let task_time = document.getElementById("task_time").value
+   
     
+    // console.log(raw_date)
+    
+    // console.log(task_date)
+
     let task = {
         description: description,
         task_date: task_date,
+        task_time: task_time
     }
+    console.log(task)
 
     fetch(`${BASE_URL}/tasks`, {
         method: "POST",
@@ -110,8 +121,8 @@ function taskFormSubmit(){
         body: JSON.stringify(task)
     })
     .then(resp => resp.json())
-    .then(task => {
-        let t = new Task(task.id, task.description, task.task_date)
+    .then(resp => {
+        let t = new Task(task.id, task.description, task.task_date, task.task_time)
         t.renderTask()
     })
 }
