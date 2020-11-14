@@ -3,7 +3,7 @@ class User{
         this.id = id
         this.username = username
      }
-
+  
      renderUser() {
          let usersDiv = document.getElementById("welcome")
              usersDiv.innerHTML = `<h2>Welcome, ${this.username}!

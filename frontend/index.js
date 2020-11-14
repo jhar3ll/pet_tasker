@@ -16,7 +16,7 @@ function createUserForm() {
     usersForm.addEventListener("submit", () => {
         userFormSubmit()
         usersForm.innerHTML = ''
-        postSubmit()
+        createTaskForm()
     })
 }
 
@@ -43,12 +43,6 @@ function userFormSubmit(){
     })
 }
 
-function postSubmit(){
-    //functions for after new username
-    createTaskForm()
-}
-
-
 function fetchTasks(){
     fetch(`${BASE_URL}/tasks`)
     .then(resp => resp.json())
@@ -60,14 +54,9 @@ function fetchTasks(){
     })
 }
 
-function taskList(){
-    let upcomingTasks = document.getElementById("tasks")
-        upcomingTasks.innerHTML = `<h3> Here are your upcoming tasks:</h3>`
-}
-
 function createTaskForm() {
-    let tasksForm = document.getElementById("tasks-form")
 
+    let tasksForm = document.getElementById("tasks-form")
     tasksForm.innerHTML +=
     `<form> 
     Task: <input type="text" id="description" placeholder="Task Description">
@@ -88,13 +77,15 @@ function createTaskForm() {
     ` 
     tasksForm.addEventListener("submit", () => {
         taskFormSubmit()
-        taskList()
+        let upcomingTasks = document.getElementById("tasks")
+        upcomingTasks.innerHTML = `<h3> Here are your upcoming tasks:</h3>`
         event.target.reset()
     })
 }
 
 function taskFormSubmit(){
     event.preventDefault()
+
     let description = document.getElementById("description").value
     let raw_date = document.getElementById("task_date").value
     let task_date = new Date(raw_date).toDateString()
