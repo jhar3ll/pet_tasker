@@ -6,7 +6,7 @@ class User{
 
      renderUser() {
          let usersDiv = document.getElementById("welcome")
-             usersDiv.innerHTML = `<h2>Welcome ${this.username}!</h2>`
+             usersDiv.innerHTML = `<h2>Welcome ${this.username}!`
      }
 }
         

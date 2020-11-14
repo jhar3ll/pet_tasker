@@ -8,7 +8,8 @@ class Task{
    
     renderTask() {
         let newTask = document.createElement("li")
-            newTask.innerHTML += `${this.description} on ${this.task_date})`
-            document.getElementById("tasks").appendChild(newTask)
+            newTask.innerHTML += `${this.description} on ${this.task_date}`
+        let taskList = document.getElementById("tasks-li")
+            taskList.appendChild(newTask)
     }
 }

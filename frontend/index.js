@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     createUserForm()
-    fetchTasks()
-    createTaskForm()
 })
 
 const BASE_URL = "http://localhost:3000/"
@@ -16,8 +14,8 @@ function createUserForm() {
     </form>
     ` 
     usersForm.addEventListener("submit", () => {
-        event.target.reset()
         userFormSubmit()
+        event.target.reset()
         postSubmit()
     })
 }
@@ -29,7 +27,7 @@ function userFormSubmit(){
     let user = {
         username: username
     }
-
+ 
     fetch(`${BASE_URL}/users`, {
         method: "POST",
         headers: {
@@ -47,9 +45,10 @@ function userFormSubmit(){
 
 function postSubmit(){
     //functions for after new username
-    fetchTasks()
+    taskList()
     createTaskForm()
 }
+
 
 function fetchTasks(){
     fetch(`${BASE_URL}/tasks`)
@@ -62,13 +61,26 @@ function fetchTasks(){
     })
 }
 
+function taskList(){
+    let upcomingTasks = document.getElementById("tasks")
+        upcomingTasks.innerHTML = `<h3> Here are your upcoming tasks:</h3>`
+}
+
 function createTaskForm() {
     let tasksForm = document.getElementById("tasks-form")
 
     tasksForm.innerHTML +=
     `<form> 
     Task: <input type="text" id="description" placeholder="task description">
-          <input type="text" id="task_date" >
+          <input type="date" id="task_date">
+          
+          <select name="pet" id="pet_id" >
+            <option value="Charlie">Charlie</option>
+            <option value="Luna">Luna</option>
+            <option value="Lila">Lila</option>
+            <option value="Simon">Simons</option>
+        </select>
+
           <input type="submit" value="create">
           
     </form>
@@ -76,18 +88,17 @@ function createTaskForm() {
     tasksForm.addEventListener("submit", () => {
         taskFormSubmit()
         event.target.reset()
-        //clearForm()
     })
 }
 
 function taskFormSubmit(){
     event.preventDefault()
     let description = document.getElementById("description").value
-    let task_date = document.getElementById("task_date").value
+    let task_date = document.getElementById("task_date").value  
     
     let task = {
         description: description,
-        task_date: task_date
+        task_date: task_date,
     }
 
     fetch(`${BASE_URL}/tasks`, {
@@ -121,9 +132,4 @@ function taskFormSubmit(){
 //     .then(users => console.log(users))
 // }
 
-{/* <select name="pet" id="pet_id" placeholder="select your pet">
-            <option value="1">Charlie</option>
-            <option value="2">Luna</option>
-            <option value="3">Lila</option>
-            <option value="4">Simon</option>
-        </select> */}
+ 
