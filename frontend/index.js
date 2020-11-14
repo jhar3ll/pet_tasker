@@ -71,9 +71,11 @@ function createTaskForm() {
     tasksForm.innerHTML +=
     `<form> 
     Task: <input type="text" id="description" placeholder="Task Description">
-          <input type="date" id="task_date">
-          <input type="time" id="task_time">
-          
+
+        <label for="task_date"> Time & Date:</label>
+          <input type="datetime-local" id="task_date">
+
+        <label for="pet_id">  Pet:</label>
           <select name="pet" id="pet_id" >
             <option value="Charlie">Charlie</option>
             <option value="Luna">Luna</option>
@@ -82,7 +84,6 @@ function createTaskForm() {
         </select>
 
           <input type="submit" value="create">
-          
     </form>
     ` 
     tasksForm.addEventListener("submit", () => {
@@ -97,20 +98,13 @@ function taskFormSubmit(){
     let description = document.getElementById("description").value
     let raw_date = document.getElementById("task_date").value
     let task_date = new Date(raw_date).toDateString()
-
-    let task_time = document.getElementById("task_time").value
+    let task_time = new Date(raw_date).toLocaleTimeString()
    
-    
-    // console.log(raw_date)
-    
-    // console.log(task_date)
-
     let task = {
         description: description,
         task_date: task_date,
         task_time: task_time
     }
-    console.log(task)
 
     fetch(`${BASE_URL}/tasks`, {
         method: "POST",
