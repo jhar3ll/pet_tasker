@@ -46,6 +46,6 @@ class PetsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def pet_params
-      params.require(:pet).permit(:name, :img_src)
+      params.require(:pet).permit(:name, :pet_type, :user_id)
     end
 end
