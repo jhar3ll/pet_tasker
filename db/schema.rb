@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(version: 2020_11_10_214743) do
 
   create_table "pets", force: :cascade do |t|
     t.string "name"
-    t.string "img_src"
     t.string "breed"
     t.string "pet_type"
     t.integer "user_id"

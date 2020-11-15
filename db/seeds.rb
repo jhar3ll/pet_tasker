@@ -6,11 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# User.create(username: "Jharell")
+User.create(username: "Jharell")
 
-# Pet.create(name: "Charlie", breed: "German Shepherd", pet_type: "dog", user_id: 1)
-# Pet.create(name: "Luna", breed: "German Shepherd", pet_type: "dog", user_id: 2)
-# Pet.create(name: "Lila", breed: "Tabby", pet_type: "cat", user_id: 2)
-# Pet.create(name: "Simon", breed: "American Curl", pet_type: "cat", user_id: 2)
+Pet.create(name: "Charlie", breed: "German Shepherd", pet_type: "dog", user_id: 1)
+Pet.create(name: "Luna", breed: "German Shepherd", pet_type: "dog", user_id: 1)
+Pet.create(name: "Lila", breed: "Tabby", pet_type: "cat", user_id: 1)
+Pet.create(name: "Simon", breed: "American Curl", pet_type: "cat", user_id: 1)
 
 # Task.create(description: "Vet Appointment", task_date: "11/20/2020", user_id: 1, pet_id: 1)
