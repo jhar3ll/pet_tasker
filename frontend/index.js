@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     createUserForm()
+    createPetForm()
+    fetchBreeds()
     //createTaskForm()
     //fetchPets()
 })
@@ -20,6 +22,7 @@ function createUserForm() {
         usersForm.innerHTML = ''
         createTaskForm()
         fetchPets()
+        createPetForm()
     })
 }
 
@@ -126,6 +129,59 @@ function fetchPets(){
         }
     }) 
 }
+
+function createPetForm() {
+    let petsForm = document.getElementById("pets-form")
+
+    petsForm.innerHTML +=
+    `<form> 
+    Pet: <input type="text" id="pet_name" placeholder="Pet Name">
+        <label for="pet_breed">Breed:</label>
+         <select id="pet_breed"></select>
+
+         <label for="pet_type">Type:</label>
+         <select id="pet_type">
+         <option value="bird">Bird</option>
+         <option value="cat">Cat</option>
+         <option value="dog">Dog</option>
+         <option value="ferret">Ferret</option>
+         <option value="fish">Fish</option>
+         <option value="hamster">Hamster</option>
+         <option value="horse">Horse</option>
+         <option value="iguana">Iguana</option>
+         <option value="mouse">Mouse</option>
+         <option value="pig">Pig</option>
+         <option value="rabbit">Rabbit</option>
+         <option value="snake">Snake</option>
+         <option value="turtle">Turtle</option>
+         </select>
+
+              <input type="submit" value="create">
+    </form>
+    ` 
+    petsForm.addEventListener("submit", () => {
+       
+    })
+}
+
+function fetchBreeds() {
+    const breedUrl = 'https://dog.ceo/api/breeds/list/all'
+    fetch(breedUrl)
+    .then(resp => resp.json()) 
+      .then(function(json) {
+        breeds = Object.keys(json.message)
+        breeds.forEach(breed => addBreed(breed))
+      })
+    }
+
+    function addBreed(breed){
+        let container = document.getElementById("pet_breed")
+        let option = breed
+        let el = document.createElement("option")
+        el.textContent = option
+        el.value = option 
+        container.appendChild(el)
+      }
 
 // function deleteUser(){
 //     let userId = parseInt(event.target.dataset.id)
