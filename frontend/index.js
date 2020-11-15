@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     createUserForm()
+    //createTaskForm()
+    //fetchPets()
 })
 
 const BASE_URL = "http://localhost:3000/"
@@ -17,6 +19,7 @@ function createUserForm() {
         userFormSubmit()
         usersForm.innerHTML = ''
         createTaskForm()
+        fetchPets()
     })
 }
 
@@ -56,25 +59,23 @@ function fetchTasks(){
 
 function createTaskForm() {
 
-    let tasksForm = document.getElementById("tasks-form")
+    let tasksForm = document.getElementById("tasks-form") 
     tasksForm.innerHTML +=
-    `<form> 
-    Task: <input type="text" id="description" placeholder="Task Description">
-
-        <label for="task_date"> Time & Date:</label>
-          <input type="datetime-local" id="task_date">
-
-        <label for="pet_id">  Pet:</label>
-          <select name="pet" id="pet_id" >
-            <option value="Charlie">Charlie</option>
-            <option value="Luna">Luna</option>
-            <option value="Lila">Lila</option>
-            <option value="Simon">Simons</option>
-        </select>
-
-          <input type="submit" value="create">
-    </form>
-    ` 
+    `
+    <div id="tasks-form">
+        <form> 
+            Task: <input type="text" id="description" placeholder="Task Description">
+        
+                <label for="task_date"> Time & Date:</label>
+                  <input type="datetime-local" id="task_date">
+        
+                <label for="pet_id">  Pet:</label>
+                  <select id="pet_id"></select>
+        
+                  <input type="submit" value="create">
+            </form>
+    </div>
+    `
     tasksForm.addEventListener("submit", () => {
         taskFormSubmit()
         let upcomingTasks = document.getElementById("tasks")
@@ -88,13 +89,15 @@ function taskFormSubmit(){
 
     let description = document.getElementById("description").value
     let raw_date = document.getElementById("task_date").value
+    let pet_name = document.getElementById("pet_id").value
     let task_date = new Date(raw_date).toDateString()
     let task_time = new Date(raw_date).toLocaleTimeString()
    
     let task = {
         description: description,
         task_date: task_date,
-        task_time: task_time
+        task_time: task_time,
+        pet_name: pet_name
     }
 
     fetch(`${BASE_URL}/tasks`, {
@@ -107,9 +110,21 @@ function taskFormSubmit(){
     })
     .then(resp => resp.json())
     .then(resp => {
-        let t = new Task(task.id, task.description, task.task_date, task.task_time)
+        let t = new Task(task.id, task.description, task.task_date, task.task_time, task.pet_name)
         t.renderTask()
     })
+}
+
+function fetchPets(){
+    
+    fetch(`${BASE_URL}/pets`)
+    .then(resp => resp.json())
+    .then(pets => {
+        for (const pet of pets){
+            let p = new Pet(pet.id, pet.name, pet.breed, pet.pet_type)
+            p.renderPet()
+        }
+    }) 
 }
 
 // function deleteUser(){
@@ -121,11 +136,3 @@ function taskFormSubmit(){
 
 //     this.location.reload()
 // }
-
-// function logUsers(){
-//     fetch(`${BASE_URL}/users`)
-//     .then(resp => resp.json())
-//     .then(users => console.log(users))
-// }
-
- 
