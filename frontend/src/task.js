@@ -16,3 +16,5 @@ class Task{
             taskList.appendChild(newTask)
     }
 }
+
+// <button class="delete-bttn" data-id='${this.id}' onclick="deleteTask()">Delete</button>

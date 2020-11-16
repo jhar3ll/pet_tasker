@@ -39,3 +39,6 @@ if existing, dropdown
 -add new task or -edit/view/delete tasks
 
 
+git add .
+git commit -m 'ready for css'
+git push 

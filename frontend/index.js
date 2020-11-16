@@ -19,7 +19,6 @@ function createUserForm() {
         userFormSubmit()
         usersForm.innerHTML = ''
         createTaskForm()
-        fetchPets()
         createPetForm()
     })
 }
@@ -77,12 +76,12 @@ function createTaskForm() {
     <div id="tasks-form">
         <form> 
             Task: <input type="text" id="description" placeholder="Task Description">
-        
-                <label for="task_date"> Time & Date:</label>
-                  <input type="datetime-local" id="task_date">
-        
-                <label for="pet_id">  Pet:</label>
-                  <select id="pet_id"></select>
+
+            <label for="pet_id">  Pet:</label>
+            <select id="pet_id"></select>
+
+            <label for="task_date"> Time & Date:</label>
+            <input type="datetime-local" id="task_date">
         
                   <input type="submit" value="create">
             </form>
@@ -169,7 +168,6 @@ function createPetForm() {
          <option value="snake">Snake</option>
          <option value="turtle">Turtle</option>
          </select>
-
               <input type="submit" value="create">
     </form>
     ` 
@@ -205,12 +203,3 @@ function petFormSubmit(){
         p.renderPet()
     })
 }
-// function deleteUser(){
-//     let userId = parseInt(event.target.dataset.id)
-
-//     fetch(`${BASE_URL}/users/${userId}`, {
-//         method: 'DELETE'
-//     })
-
-//     this.location.reload()
-// }
