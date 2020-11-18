@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create(username: "Jharell")
+# User.create(username: "Jharell")
 
-Pet.create(name: "Charlie", pet_type: "dog", user_id: 1)
-Pet.create(name: "Luna", pet_type: "dog", user_id: 1)
-Pet.create(name: "Lila", pet_type: "cat", user_id: 1)
-Pet.create(name: "Simon", pet_type: "cat", user_id: 1)
+# Pet.create(name: "Charlie", pet_type: "dog", user_id: 1)
+# Pet.create(name: "Luna", pet_type: "dog", user_id: 1)
+# Pet.create(name: "Lila", pet_type: "cat", user_id: 1)
+# Pet.create(name: "Simon", pet_type: "cat", user_id: 1)
