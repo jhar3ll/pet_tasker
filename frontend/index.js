@@ -63,7 +63,7 @@ function fetchTasks(){
     .then(resp => resp.json())
     .then(tasks => {
         for (const task of tasks){
-            let t = new Task(task.id, task.description, task.task_date, task.task_time, task.user_id)//, task.task_date, task.task_time, task.user_id)
+            let t = new Task(task.id, task.description, task.task_date, task.task_time, task.pet_name, task.user_id)
             t.renderTask()
             console.log(t)
         }
@@ -71,13 +71,16 @@ function fetchTasks(){
 }
 
 function createTaskForm() {
-    //fetchPets()
+    fetchPets()
     let tasksForm = document.getElementById("tasks-form") 
     tasksForm.innerHTML =
     `
     <div id="tasks-form">
         <form> 
             Task: <input type="text" id="description" placeholder="Task Description">
+
+            <label for="pet_id">  Pet:</label>
+            <select id="pet_id"></select>
 
             <label for="task_date"> Time & Date:</label>
             <input type="datetime-local" id="task_date">    
@@ -99,7 +102,7 @@ function taskFormSubmit(){
 
     let description = document.getElementById("description").value
     let raw_date = document.getElementById("task_date").value
-   //let pet_name = document.getElementById("pet_id").value
+    let pet_name = document.getElementById("pet_id").value
     let user_id = document.getElementById("user_id").value
     
     let task_date = new Date(raw_date).toDateString()
@@ -109,10 +112,10 @@ function taskFormSubmit(){
         description: description,
         task_date: task_date,
         task_time: task_time,
-        // pet_name: pet_name,
+        pet_name: pet_name,
         user_id: user_id
     }
-
+        
     fetch(`${BASE_URL}/tasks`, {
         method: "POST",
         headers: {
@@ -123,86 +126,85 @@ function taskFormSubmit(){
     })
     .then(resp => resp.json())
     .then(task => {
-        let t = new Task(task.id, task.description, task.task_date, task.task_time, task.user_id)
+        let t = new Task(task.id, task.description, task.task_date, task.task_time, task.pet_name, task.user_id)
         t.renderTask()
         console.log(t)
     })
 }
 
-// function fetchPets(){
+function fetchPets(){
     
-//     fetch(`${BASE_URL}/pets`)
-//     .then(resp => resp.json())
-//     .then(pets => {
-//         for (const pet of pets){
-//             let p = new Pet(pet.id, pet.name, pet.breed, pet.pet_type, pet.user_id)
-//             p.renderPet()
-//         }
-//     }) 
-// }
+    fetch(`${BASE_URL}/pets`)
+    .then(resp => resp.json())
+    .then(pets => {
+        for (const pet of pets){
+            let p = new Pet(pet.id, pet.name, pet.breed, pet.pet_type, pet.user_id)
+            p.renderPet()
+        }
+    }) 
+}
 
-// function createPetForm() {
-//     let petContainer = document.getElementById("pet-container")
-//         petContainer.innerHTML = `<h3> Add a new pet:`
-//     let petsForm = document.createElement('div')
-//         petsForm.id = "pets-form"
-//         petContainer.appendChild(petsForm)
+function createPetForm() {
+    let petContainer = document.getElementById("pet-container")
+        petContainer.innerHTML = `<h3> Add a new pet:`
+    let petsForm = document.createElement('div')
+        petsForm.id = "pets-form"
+        petContainer.appendChild(petsForm)
 
-//     petsForm.innerHTML =
-//     `<form> 
-//     Pet: <input type="text" id="pet_name" placeholder="Pet Name">
+    petsForm.innerHTML =
+    `<form> 
+    Pet: <input type="text" id="pet_name" placeholder="Pet Name">
     
-//          <label for="pet_type">Type:</label>
-//          <select id="pet_type">
-//          <option value="bird">Bird</option>
-//          <option value="cat">Cat</option>
-//          <option value="dog">Dog</option>
-//          <option value="ferret">Ferret</option>
-//          <option value="fish">Fish</option>
-//          <option value="hamster">Hamster</option>
-//          <option value="horse">Horse</option>
-//          <option value="iguana">Iguana</option>
-//          <option value="mouse">Mouse</option>
-//          <option value="pig">Pig</option>
-//          <option value="rabbit">Rabbit</option>
-//          <option value="snake">Snake</option>
-//          <option value="turtle">Turtle</option>
-//          </select>
-//               <input type="submit" value="create">
-//     </form>
-//     ` 
-//     petsForm.addEventListener("submit", () => {
-//        petFormSubmit()
-//        event.target.reset()
-//     })
-// }
+         <label for="pet_type">Type:</label>
+         <select id="pet_type">
+         <option value="bird">Bird</option>
+         <option value="cat">Cat</option>
+         <option value="dog">Dog</option>
+         <option value="ferret">Ferret</option>
+         <option value="fish">Fish</option>
+         <option value="hamster">Hamster</option>
+         <option value="horse">Horse</option>
+         <option value="iguana">Iguana</option>
+         <option value="mouse">Mouse</option>
+         <option value="pig">Pig</option>
+         <option value="rabbit">Rabbit</option>
+         <option value="snake">Snake</option>
+         <option value="turtle">Turtle</option>
+         </select>
+              <input type="submit" value="create">
+    </form>
+    ` 
+    petsForm.addEventListener("submit", () => {
+       petFormSubmit()
+       event.target.reset()
+    })
+}
 
-// function petFormSubmit(){
-//     event.preventDefault()
-//     let name = document.getElementById("pet_name").value
-//     let type = document.getElementById("pet_type").value
-//     let user_id = document.getElementById("user_id").value
+function petFormSubmit(){
+    event.preventDefault()
+    let name = document.getElementById("pet_name").value
+    let type = document.getElementById("pet_type").value
+    let user_id = document.getElementById("user_id").value
 
-//     let pet = {
-//         name: name,
-//         type: type,
-//         user_id: user_id
-//     }
+    let pet = {
+        name: name,
+        type: type,
+        user_id: user_id
+    }
  
-//     fetch(`${BASE_URL}/pets`, {
-//         method: "POST",
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(pet)
-//     })
-//     .then(resp => resp.json())
-//     .then(pet => {
-//         let p = new Pet(pet.id, pet.name, pet.pet_type, pet.user_id)
-//         p.renderPet()
-//     })
-// }
+    fetch(`${BASE_URL}/pets`, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(pet)
+    })
+    .then(resp => resp.json())
+    .then(pet => {
+        let p = new Pet(pet.id, pet.name, pet.pet_type, pet.user_id)
+        p.renderPet()
+    })
+}
 
-//<label for="pet_id">  Pet:</label>
-//<select id="pet_id"></select>
+
