@@ -13,4 +13,4 @@ Pet.create(name: "Luna", pet_type: "dog", user_id: 1)
 Pet.create(name: "Lila", pet_type: "cat", user_id: 1)
 Pet.create(name: "Simon", pet_type: "cat", user_id: 1)
 
-#Task.create(description: "Vet Appointment", task_date: "11/20/2020", user_id: 1, pet_id: 1)
+Task.create(description: "Vet Appointment", user_id: 1)#, #pet_id: 1, task_date: "11/20/2020", task_time: "3:30:00 PM", user_id: 1)

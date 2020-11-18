@@ -4,7 +4,6 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     @tasks = Task.all
-    
     render json: @tasks, except: [:created_at, :updated_at]
   end
 
@@ -47,6 +46,6 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:id, :description, :task_date, :task_time, :pet_name, :user_id)
+      params.require(:task).permit(:description, :user_id, :task_date, :task_time)
     end
 end
