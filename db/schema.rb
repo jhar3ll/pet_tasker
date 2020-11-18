@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2020_11_10_214743) do
     t.string "description"
     t.string "task_date"
     t.string "task_time"
+    t.string "pet_name"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
