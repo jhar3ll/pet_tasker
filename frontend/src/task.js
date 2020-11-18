@@ -12,9 +12,9 @@ class Task{
     renderTask() {
         let newTask = document.createElement("li")
             newTask.innerHTML = `${this.description} for ${this.pet_name} on ${this.task_date} at ${this.task_time}`
+            
         let taskList = document.getElementById("tasks-li")
             taskList.appendChild(newTask)
     }
 }
 
-// <button class="delete-bttn" data-id='${this.id}' onclick="deleteTask()">Delete</button>

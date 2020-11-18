@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     createUserForm()
-    fetchUser()
-    createTaskForm()
 })
 
 const BASE_URL = "http://localhost:3000/"
@@ -20,7 +18,7 @@ function createUserForm() {
         userFormSubmit()
         usersForm.innerHTML = ''
         createTaskForm()
-       // createPetForm()
+        createPetForm()
     })
 }
 
@@ -38,7 +36,8 @@ function fetchUser(){
 function userFormSubmit(){
     event.preventDefault()
     let username = document.getElementById("username").value
-   
+    
+    if (username === "") throw alert("Username cannot be blank") 
     let user = {
         username: username,
     }
@@ -108,6 +107,9 @@ function taskFormSubmit(){
     let task_date = new Date(raw_date).toDateString()
     let task_time = new Date(raw_date).toLocaleTimeString()
    
+    if (description === "") throw alert("Description cannot be blank")
+    if (raw_date === "") throw alert("Date/Time cannot be blank")
+
     let task = {
         description: description,
         task_date: task_date,
@@ -171,7 +173,7 @@ function createPetForm() {
          <option value="snake">Snake</option>
          <option value="turtle">Turtle</option>
          </select>
-              <input type="submit" value="create">
+              <input type="submit" value="add pet">
     </form>
     ` 
     petsForm.addEventListener("submit", () => {
@@ -185,6 +187,8 @@ function petFormSubmit(){
     let name = document.getElementById("pet_name").value
     let type = document.getElementById("pet_type").value
     let user_id = document.getElementById("user_id").value
+
+    if (name === "") throw alert("Pet Name cannot be blank")
 
     let pet = {
         name: name,
@@ -206,5 +210,3 @@ function petFormSubmit(){
         p.renderPet()
     })
 }
-
-
