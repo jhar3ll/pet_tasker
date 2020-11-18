@@ -15,4 +15,3 @@ class Pet{
         select.appendChild(el);
     }
   }
-
