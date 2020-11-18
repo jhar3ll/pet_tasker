@@ -210,3 +210,13 @@ function petFormSubmit(){
         p.renderPet()
     })
 }
+
+function deleteTask(){
+    let taskId = parseInt(event.target.dataset.id)
+
+    fetch(`${BASE_URL}/tasks/${taskId}`, {	
+    method: 'DELETE'	
+     })	
+        
+    this.location.reload()
+}
