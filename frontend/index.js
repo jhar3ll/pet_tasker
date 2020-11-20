@@ -13,7 +13,7 @@ function createUserForm() {
               <input type="submit" value="create">
     </form>
     ` 
-
+    
     usersForm.addEventListener("submit", () => {
         userFormSubmit()
         usersForm.innerHTML = ''
@@ -56,15 +56,15 @@ function userFormSubmit(){
         u.renderUser()
     })
 }
-
 function fetchTasks(){
+    var task_arr = []
+
     fetch(`${BASE_URL}/tasks`)
     .then(resp => resp.json())
     .then(tasks => {
         for (const task of tasks){
             let t = new Task(task.id, task.description, task.task_date, task.task_time, task.pet_name, task.user_id)
-            t.renderTask()
-            console.log(t)
+                t.renderTask() 
         }
     })
 }
@@ -72,7 +72,7 @@ function fetchTasks(){
 function createTaskForm() {
     fetchPets()
     let tasksForm = document.getElementById("tasks-form") 
-    tasksForm.innerHTML =
+    tasksForm.innerHTML +=
     `
     <div id="tasks-form">
         <form> 
@@ -130,7 +130,6 @@ function taskFormSubmit(){
     .then(task => {
         let t = new Task(task.id, task.description, task.task_date, task.task_time, task.pet_name, task.user_id)
         t.renderTask()
-        console.log(t)
     })
 }
 
@@ -210,13 +209,4 @@ function petFormSubmit(){
         p.renderPet()
     })
 }
-
-function deleteTask(){
-    let taskId = parseInt(event.target.dataset.id)
-
-    fetch(`${BASE_URL}/tasks/${taskId}`, {	
-    method: 'DELETE'	
-     })	
-        
-    this.location.reload()
-}
+  
