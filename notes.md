@@ -6,39 +6,36 @@ User
 username:string
 
 *has_many :pets
-*has_many :tasks, through: :pets
+*has_many :tasks
 
 Pet
 name:string
-img_src:string
-breed:string
 type:string
 
-*has_many :tasks
 *belongs_to :user
 
 Task
 description:string
-task_date:date
-
-*belongs_to :pet
+task_date:string
+task_time:string
+pet_name:string
 *belongs_to :user 
 -----------------------------
 
 User Flow
+-----------------------------
 -Welcome page
 -Enter username
 
--Enter new pet info
- 
+-Add new task and/or new pet 
 
--Enter more new pet info or -select from current pets
+Pet:
 if new, form
 if existing, dropdown
 
--add new task or -edit/view/delete tasks
+Task:
+-add new task 
+ => add another task and/or delete task
 
 
-git add .
-git commit -m 'ready for css'
-git push 
+
